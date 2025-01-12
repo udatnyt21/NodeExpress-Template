@@ -2,11 +2,24 @@ const userModel = require("../models/userModel")
 
 //      name        req,res    the actual function
 exports.register = (req,res) => {
-    console.log("Register")
-}
+    const username = req.body.username.trim()
+    const password = req.body.password.trim()
+    const passwordCheck = req.body.passwordCheck.trim()
+
+    if(!username || !password )
+        return res.redirect("/user/registerGet")
+    if(password != passwordCheck)
+        return res.redirect("/user/registerGet")
+    if(userModel.userExists(username))
+        return res.redirect("/user/registerGet")
+
+    userModel.register(username, password)
+
+    return res.redirect("/user/loginGet")
+}   
 
 exports.login = (req,res) => {
-    console.log("Login")
+     
 }
 
 exports.logout = (req,res) => {
