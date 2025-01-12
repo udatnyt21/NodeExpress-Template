@@ -18,10 +18,10 @@ app.use(express.static("./www"))
 //Use JSON
 app.use(express.json())
 //initializing EJS
-// What to use for my view engine - ejs
-app.set('view engine', 'ejs')
 //Where my views are going to be
 app.set('views', './app/views')
+// What to use for my view engine - ejs
+app.set('view engine', 'ejs')
 
 //Accept data from froms
 app.use(express.urlencoded({extended: true}))
