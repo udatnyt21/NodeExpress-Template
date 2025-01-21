@@ -24,3 +24,17 @@ exports.register = (username, password) => {
     db.set(id, {id, username, passwordHash})
     db.set("next_id", id+1)
 }
+
+exports.userfromName = (name) => {
+    const data = db.JSON();
+    for(let i in data){
+        if(data[i].username == name)
+            return db.get(i);
+    }
+}
+
+exports.checkPassword = (passwordToCheck, id) => {
+    password = db.get(id).passwordHash
+    console.log(bcrypt.compareSync(passwordToCheck, password))
+    return bcrypt.compareSync(passwordToCheck, password)
+}

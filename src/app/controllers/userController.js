@@ -19,6 +19,23 @@ exports.register = (req,res) => {
 }   
 
 exports.login = (req,res) => {
+
+    req.session.destroy()
+
+    const username = req.body.username.trim()
+    const password = req.body.password.trim()
+
+    const user = userModel.userfromName(username);
+
+    if(!username || !password)
+            return res.redirect("/user/loginGet")
+    if(!userModel.checkPassword(password, user.id))
+        return res.redirect("/user/loginGet")
+
+    req.session.loggedUser = user.username
+    req.session.loggedID = user.id
+
+    return res.redirect("/user/profile")
      
 }
 
