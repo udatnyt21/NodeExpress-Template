@@ -20,8 +20,6 @@ exports.register = (req,res) => {
 
 exports.login = (req,res) => {
 
-    req.session.destroy()
-
     const username = req.body.username.trim()
     const password = req.body.password.trim()
 
@@ -32,18 +30,32 @@ exports.login = (req,res) => {
     if(!userModel.checkPassword(password, user.id))
         return res.redirect("/user/loginGet")
 
-    req.session.loggedUser = user.username
-    req.session.loggedID = user.id
+    req.session.user = {
+        id: user.id,
+        username: user.username
+    };
 
+    console.log(req.session.user)
     return res.redirect("/user/profile")
      
 }
 
 exports.logout = (req,res) => {
+    req.session.destroy()
+
+    res.redirect("/user/loginGet")
 
 }
 
 exports.profile = (req,res) => {
+    console.log(req.session.user)
+
+    if (!req.session.user)
+        return res.redirect("/")
+
+    res.render("./user/profile.ejs", {
+        username: req.session.user.username
+    })
 
 }
 

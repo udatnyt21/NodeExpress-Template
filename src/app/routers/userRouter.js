@@ -4,7 +4,7 @@ const userController = require("../controllers/userController") // Get the contr
 //        method     path   controller function
 userRouter.post("/register", userController.register)
 userRouter.post("/login", userController.login)
-userRouter.post("/logout", userController.logout)
+userRouter.get("/logout", userController.logout)
 userRouter.get("/profile", userController.profile)
 
 userRouter.get("/registerGet", userController.registerGet)

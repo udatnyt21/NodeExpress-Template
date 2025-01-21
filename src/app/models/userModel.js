@@ -35,6 +35,5 @@ exports.userfromName = (name) => {
 
 exports.checkPassword = (passwordToCheck, id) => {
     password = db.get(id).passwordHash
-    console.log(bcrypt.compareSync(passwordToCheck, password))
     return bcrypt.compareSync(passwordToCheck, password)
 }

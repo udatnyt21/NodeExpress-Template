@@ -34,6 +34,12 @@ app.use(session({
     resave: false
 }))
 
+app.use(function(req, res, next) {
+    res.locals.loggedUser = req.session.loggedUser;
+    res.locals.loggedID = req.session.loggedID;
+    next();
+  });
+
 //Send everything to mainRouter
 app.use("/", require("./routers/mainRouter.js"))
 
